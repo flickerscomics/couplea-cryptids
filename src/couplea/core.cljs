@@ -68,10 +68,11 @@
      [:h2.section-title.distress {:id "make-title"} "What We Make"]
      [ui/rule]]
     [:ul.makes
-     (for [{:keys [id label]} d/categories]
+     (for [{:keys [id label icon]} d/categories]
        ^{:key id}
        [:li.make
-        [:div.make__icon [i/category id]]
+        ;; the label under the picture already says what it is, so no alt text
+        [:div.make__icon [i/icon-img icon]]
         [:p.make__label label]])]]])
 
 ;; ---------------------------------------------------------------- makers
@@ -79,7 +80,7 @@
 (defn maker-card [k icon-k]
   (let [{:keys [name role bio makes]} (get-in d/site [:makers k])]
     [:article.maker.paper.paper--folded
-     [:div.maker__icon {:aria-hidden "true"} [i/category icon-k]]
+     [:div.maker__icon [i/icon-img (d/category-icon icon-k)]]
      [:h3.maker__name.distress name]
      [:p.maker__role role]
      [:p.maker__bio bio]
@@ -176,7 +177,6 @@
 
 (defn app []
   [:<>
-   [i/rough-filter]
    [:a.skip {:href "#shelves"} "Skip to the shelves"]
    [nav]
    [:main

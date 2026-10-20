@@ -14,7 +14,11 @@
 (def categories [:jerky :apples :wood :candles :handmade])
 
 (def stock-keys
-  [:name :description :price :category :maker :in-stock :tag :image])
+  [:name :description :price :category :maker :in-stock :tag :image :icon])
+
+;; Where the icon pictures live. An item's :icon must be the name of a file in
+;; here, without .svg (for example "beef-jerky" is static/art/icons/beef-jerky.svg).
+(def icons-dir-path "static/art/icons")
 
 (def required-stock-keys
   [:name :description :price :category :maker :in-stock])
@@ -112,6 +116,47 @@
                          ". " what-happened " "
                          "Usually that's a missing quote \", bracket ] or brace }. "
                          "Check that every opening one has a matching closing one.")]})))))
+
+;; ---------------------------------------------------------------- icons
+
+(defn icon-names
+  "Every icon we have, like [\"basket-plant\" \"beef-jerky\" ...] (sorted)."
+  []
+  (let [dir (io/file icons-dir-path)]
+    (->> (when (.isDirectory dir) (.list dir))
+         (filter #(str/ends-with? % ".svg"))
+         (map #(subs % 0 (- (count %) 4)))
+         sort
+         vec)))
+
+(defn- closest-icons
+  "The few icon names that look most like what was typed. Words they share
+   count most, then spelling closeness."
+  [typed names]
+  (let [words  (fn [s] (set (str/split (str/lower-case s) #"[-\s_]+")))
+        typed* (words typed)]
+    (let [ranked  (sort-by (fn [n] [(- (count (filter typed* (words n)))) (distance typed n)]) names)
+          ;; only suggest names that share a word, or are spelled almost the same
+          ;; a word is "almost the same" if one or two letters differ (candle / candles)
+          near?   (fn [a b] (<= (distance a b) 2))
+          close?  (fn [n] (or (some (fn [t] (some #(near? t %) (words n))) typed*)
+                              (<= (distance typed n) (max 3 (quot (count typed) 4)))))
+          close   (filter close? ranked)]
+      (take 3 (if (seq close) close ranked)))))
+
+(defn- icon-problem [label icon names]
+  (cond
+    (not (string? icon))
+    (str label ": :icon must be a name in quotes, like :icon \"beef-jerky\". Got " (show icon) ".")
+
+    (str/ends-with? icon ".svg")
+    (str label ": :icon " (show icon) " should not end in .svg. Write :icon "
+         (show (subs icon 0 (- (count icon) 4))) " instead.")
+
+    (not (some #{icon} names))
+    (str label ": there is no icon called " (show icon) ". "
+         "Closest matches: " (str/join ", " (map show (closest-icons icon names))) ". "
+         "The full list is at the top of stock.edn. Copy a name exactly.")))
 
 ;; ---------------------------------------------------------------- stock
 
@@ -222,7 +267,10 @@
                      (> (count v) 24)  (str label ": :tag is " (count v) " characters. Keep the little stamp under 24."))))]
               ;; image (optional)
               [(when (and (contains? present :image) (not (blank-str? (:image item))))
-                 (image-problem label (:image item) images-dir))])
+                 (image-problem label (:image item) images-dir))]
+              ;; icon (optional)
+              [(when (and (contains? present :icon) (not (blank-str? (:icon item))))
+                 (icon-problem label (:icon item) (icon-names)))])
              (remove nil?)
              vec)))))
 
@@ -344,7 +392,13 @@
         stock-e (or (:errors stock-r) (stock-problems (:data stock-r) (io/file "images")))
         errors  (vec (concat site-e stock-e))]
     {:errors   errors
-     :warnings (when (empty? site-e) (site-warnings (:data site-r)))
+     :warnings (concat
+                (when (empty? site-e) (site-warnings (:data site-r)))
+                ;; keep the icon list at the top of stock.edn in step with the files
+                (let [text (when (.exists (io/file "stock.edn")) (slurp "stock.edn" :encoding "UTF-8"))]
+                  (for [n (icon-names)
+                        :when (and text (not (str/includes? text n)))]
+                    (str "icon \"" n "\" exists but isn't listed in the comment at the top of stock.edn."))))
      :site     (when (empty? site-e) (normalize-site (:data site-r)))
      :stock    (when (empty? stock-e) (:data stock-r))}))
 

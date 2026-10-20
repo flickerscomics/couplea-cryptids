@@ -27,14 +27,16 @@
     (str "Nothing from " (d/maker-label maker) " on the shelves right now. Check back soon.")))
 
 (defn item-card
-  [{:keys [name description price category maker in-stock tag image]}]
-  (let [sold? (not in-stock)]
+  [{:keys [name description price category maker in-stock tag image icon]}]
+  (let [sold? (not in-stock)
+        ;; Which picture? 1) the photo, 2) the item's own :icon, 3) the category icon
+        icon-name (if (seq icon) icon (d/category-icon category))]
     [:li.item.paper {:class (when sold? "item--sold")}
      [:div.item__inner
       [:div.item__media
        (if (seq image)
          [:img {:src image :alt (str name ", photo") :loading "lazy" :decoding "async"}]
-         [:div.item__icon [i/category category]])
+         [:div.item__icon [i/icon-img icon-name {:alt (i/icon-label icon-name)}]])
        (when (seq tag) [:span.tag tag])]
       [:div.item__body
        [:p.item__meta

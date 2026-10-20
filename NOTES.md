@@ -34,13 +34,14 @@ static/                 hand-written site files, copied to the site root
   index.html            the shell; {{tokens}} are filled from site.edn at build time
   css/main.css          all styles
   art/                  web-sized card/flyer/badge (WebP), logos, og-card.jpg
+  art/icons/            the 30 item/category icons (SVG, cream #d6c1a8, SVGO-optimised)
   favicon.svg, favicon-32.png, apple-touch-icon.png
 source-art/             big originals + logo SVGs. NEVER published
 src/couplea/
   core.cljs             page: nav, hero, makers, pinned-up board, find us, app root
   shelves.cljs          filters + item cards (in stock first, sold out last)
   order.cljs            custom-order form + Discord webhook
-  icons.cljs            original line-art icons (5 categories + small marks)
+  icons.cljs            icon-img component (loads the SVG files) + tiny inline marks (phone, pines, menu)
   ui.cljs               phone copy button, rule, helpers
   data.cljs             site/stock/build-date baked in by macros
   macros.clj            compile-time macros (fail the build on bad data)
@@ -56,6 +57,7 @@ public/  dist/          generated, gitignored
 - Colours: background `#0e0e0d`, text/line art `#d6c1a8` (cream), highlight `#efdbc4`, worn brown edges `#8f7660`. Small brown text uses `#aa917a` for contrast. Errors on cream paper: `#7a1f13`.
 - Fonts (Google, max 3): **Permanent Marker** (big headings and prices only, large sizes), **Patrick Hand SC** (small labels), **Source Sans 3** (body).
 - Logo is recoloured with a CSS `mask` of `art/logo-white.svg` (so it shows in cream). `logo-black.svg` is the faint watermark on the cream order slip.
+- **Icons:** 30 SVG files in `static/art/icons/` (names like `beef-jerky.svg`, no number prefix). Loaded as `<img>` via `icons/icon-img`, lazy, `object-fit: contain` in a square box. The 5 category icons are set in `data.cljs` (`categories`). An item picks its picture in this order: `:image` photo, then `:icon`, then the category icon. `:icon` is validated in `validate.clj` against the files in that folder (typo = failed build with closest matches). The icon list in the comment at the top of `stock.edn` must be kept in step with the folder; `npm run check` prints a NOTE if a file is missing from it. To optimise new icons: `npx svgo@4.1.0 -f static/art/icons` with `floatPrecision: 1` and `removeDimensions`. Candle icons flicker (CSS glow) unless reduce-motion.
 - Texture is all CSS/SVG data URIs (`--distress`, `--patchy`, `--grain`, `--wood` in `main.css`). No big texture images. Distress only on big headings.
 - Motion is small (paper lift on hover, candle flicker) and off under `prefers-reduced-motion`.
 - Mobile first: no sideways scroll, tap targets at least 44px, inputs 16px+.

@@ -50,6 +50,7 @@ Paste it just above the last `]` at the bottom of the file, then change the word
 | `:in-stock` | `true` or `false` |
 | `:tag` | Optional little stamp in "quotes". Leave the line out for none |
 | `:image` | Optional photo. See "Add a photo" below |
+| `:icon` | Optional drawing, like `"honey-jar-dipper"`. See "Pick a drawing" below |
 
 Keep the colons (`:`), the quotes (`"`) and the brackets exactly as they are.
 
@@ -99,7 +100,39 @@ quotes after `:discord-role-id`. Leave it `nil` for no ping.
 5. Commit. Done.
 
 Capital letters matter: `Jerky.webp` and `jerky.webp` are different files.
-No photo? The site shows a hand-drawn picture for that kind of item.
+No photo? The site shows a drawing instead. See the next part.
+
+---
+
+## Pick a drawing (icon) for an item
+
+Every item without a photo shows a hand-drawn picture. There are 30 to choose from.
+The site picks the picture in this order:
+
+1. the item's **photo** (`:image`), if it has one
+2. otherwise the item's **drawing** (`:icon`), if it has one
+3. otherwise the drawing for its **category** (jerky for `:jerky`, a caramel apple for `:apples`, and so on)
+
+**To choose a drawing:**
+
+1. Open **`stock.edn`** and tap the pencil.
+2. The list of every drawing name is in the notes at the very top, grouped by kind.
+3. In your item, add a line with the name in quotes, no `.svg`:
+   ```clojure
+   :icon "honey-jar-dipper"
+   ```
+4. Commit.
+
+Copy the name exactly. If a name is wrong the build stops and suggests the closest ones, like this:
+
+```
+Item 6 ("Gift Basket"): there is no icon called "honey".
+Closest matches: "honey-jar-dipper".
+```
+
+The pictures live in `static/art/icons/`. To add a new one, upload an `.svg` there
+(small letters, dashes, no spaces, like `smoked-ham.svg`), then add its name to the list
+at the top of `stock.edn`. The build reminds you if you forget.
 
 ---
 
@@ -132,6 +165,7 @@ Common mistakes:
 |---|---|
 | `is missing :price` | You left a line out. Add it back |
 | `isn't one we know` | A typo in `:maker` or `:category`. It suggests the right word |
+| `there is no icon called` | A typo in `:icon`. It lists the closest names |
 | `has a field :instock that we don't use` | Typo in a line's name. It should be `:in-stock` |
 | `has a typo near line 44` | A missing quote `"`, bracket `]` or brace `}` |
 | `the photo "images/x.webp" isn't in the images folder` | Upload the photo first, or fix the spelling |

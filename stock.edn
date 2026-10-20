@@ -34,7 +34,30 @@
 ;;    :tag          OPTIONAL little stamp in "quotes", like "Fresh batch"
 ;;    :image        OPTIONAL photo, like "images/jerky.webp"
 ;;                  Upload the photo to the images folder first.
-;;                  Leave this line out and the site shows a drawing.
+;;    :icon         OPTIONAL drawing, like "honey-jar-dipper"
+;;                  Pick a name from the ICONS list below. Copy it exactly,
+;;                  with the quotes and without ".svg".
+;;
+;;  WHICH PICTURE DOES AN ITEM SHOW?
+;;    1. its :image photo, if it has one
+;;    2. otherwise its :icon drawing, if it has one
+;;    3. otherwise the drawing for its :category
+;;    So a photo always wins. Leave out both and you still get a nice drawing.
+;;
+;;  ICONS  (copy a name into  :icon "..."  )
+;;    Jerky & Snacks:  beef-jerky  smoked-sausages  dill-pickles-jar
+;;                     popcorn-bag  trail-mix-bag  pickled-eggs-jar
+;;    Caramel Apples:  caramel-apple  candy-apple  nut-caramel-apple
+;;                     bitten-apple
+;;    Wood Working:    pine-tree-wood-sign  cutting-board  rocking-chair
+;;                     birdhouse  wooden-spoon-and-spatula  wooden-bench
+;;                     picture-frame  walking-stick
+;;    Candles & Wax:   pine-tree-jar-candle  pillar-candle  taper-candles
+;;                     wax-melts-tin  lantern
+;;    Handmade Goods:  basket-plant  pine-wreath  soap-bar  knitted-scarf
+;;                     honey-jar-dipper  wooden-toy-horse  patchwork-quilt
+;;    A name that isn't on this list stops the build, and the message
+;;    suggests the closest ones.
 ;;
 ;;  KEEP THESE EXACT: the colons (:), the quotes ("), the brackets.
 ;;  If something is off, the build stops and tells you which item and
@@ -51,6 +74,7 @@
   :maker       :hunter        ; :buck, :hunter or :both
   :in-stock    true           ; false = shows SOLD OUT
   :tag         "Fresh batch"  ; optional little stamp
+  :icon        "beef-jerky"   ; optional drawing, from the ICONS list at the top
   }                           ; add  :image "images/jerky.webp"  for a photo
 
  {:name        "Example Caramel Apple"
@@ -58,7 +82,8 @@
   :price       150
   :category    :apples
   :maker       :hunter
-  :in-stock    true}
+  :in-stock    true
+  :icon        "caramel-apple"}
 
  {:name        "Example Wood-Burned Sign"
   :description "Example item, not for sale. Pine board, burned by hand. Any words you like."
@@ -66,26 +91,30 @@
   :category    :wood
   :maker       :buck
   :in-stock    true
-  :tag         "One of a kind"}
+  :tag         "One of a kind"
+  :icon        "pine-tree-wood-sign"}
 
  {:name        "Example Pine Candle"
   :description "Example item, not for sale. Hand-poured in a little glass jar."
   :price       200
   :category    :candles
   :maker       :buck
-  :in-stock    true}
+  :in-stock    true
+  :icon        "pine-tree-jar-candle"}
 
  {:name        "Example Dill Pickles"
   :description "Example item, not for sale. Crunchy, jarred out back."
   :price       100
   :category    :jerky
   :maker       :hunter
-  :in-stock    false}         ; sold out, so it sits at the end with a stamp
+  :in-stock    false          ; sold out, so it sits at the end with a stamp
+  :icon        "dill-pickles-jar"}
 
  {:name        "Example Gift Basket"
   :description "Example item, not for sale. A bit of everything from both of us."
   :price       :ask           ; shows "Ask us"
   :category    :handmade
   :maker       :both
-  :in-stock    true}
+  :in-stock    true
+  :icon        "basket-plant"}
 ]

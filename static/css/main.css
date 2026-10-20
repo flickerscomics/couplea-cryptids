@@ -89,7 +89,6 @@ body::before {
 }
 .skip:focus { left: 12px; }
 
-.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 .wrap { width: min(100% - 32px, 1080px); margin-inline: auto; }
 .wrap--narrow { width: min(100% - 32px, 720px); }
@@ -396,33 +395,23 @@ body::before {
   font-size: 1.15rem;
 }
 
-/* ---------- icons ---------------------------------------------------- */
-.icon {
+/* ---------- icons (SVG files in static/art/icons/) ------------------- */
+/* Each icon sits in a square box. "contain" keeps its shape, so tall, wide
+   and square pictures never look squashed, and SVG stays sharp on phones. */
+.icon-img {
   display: block;
   width: 100%;
-  height: auto;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: url(#rough);
-  overflow: visible;
+  height: 100%;
+  object-fit: contain;
 }
-.icon .solid { fill: currentColor; stroke-width: 1.5; }
-.icon .thick { stroke-width: 5.5; }
-.icon .cut { fill: none; stroke: var(--ink); stroke-width: 3; }
-.icon .flame {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: flicker 2.8s ease-in-out infinite;
-}
+/* Candles get a small flicker of glow. Turned off by "reduce motion" below. */
+.icon-img--candle { animation: flicker 3s ease-in-out infinite; }
 @keyframes flicker {
-  0%, 100% { transform: scale(1, 1) rotate(0); opacity: 1; }
-  18% { transform: scale(.94, 1.07) rotate(-2.5deg); opacity: .92; }
-  41% { transform: scale(1.04, .95) rotate(2deg); opacity: 1; }
-  66% { transform: scale(.96, 1.06) rotate(-1.5deg); opacity: .94; }
-  84% { transform: scale(1.02, .98) rotate(1.5deg); opacity: 1; }
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 0 rgba(239, 219, 196, 0)); }
+  20% { filter: brightness(1.08) drop-shadow(0 0 6px rgba(239, 219, 196, .45)); }
+  45% { filter: brightness(.96) drop-shadow(0 0 2px rgba(239, 219, 196, .2)); }
+  70% { filter: brightness(1.1) drop-shadow(0 0 8px rgba(239, 219, 196, .5)); }
+  85% { filter: brightness(1) drop-shadow(0 0 3px rgba(239, 219, 196, .25)); }
 }
 
 /* ---------- what we make -------------------------------------------- */
@@ -438,7 +427,7 @@ body::before {
   padding: 0 10px;
   text-align: center;
 }
-.make__icon { width: min(96px, 62%); margin: 0 auto 10px; color: var(--cream); }
+.make__icon { width: min(112px, 66%); aspect-ratio: 1; margin: 0 auto 10px; }
 .make__label {
   font: 1.35rem/1.15 var(--font-label);
   letter-spacing: .06em;
@@ -451,7 +440,7 @@ body::before {
 @media (min-width: 900px) {
   .make { flex: 1 1 0; max-width: none; padding: 4px 14px; }
   .make + .make { border-left: 1px solid rgba(214, 193, 168, .35); }
-  .make__icon { width: min(110px, 70%); }
+  .make__icon { width: min(128px, 76%); }
 }
 
 /* ---------- shelves -------------------------------------------------- */
@@ -519,7 +508,7 @@ body::before {
   border-radius: 10px 14px 10px 14px;
 }
 .item__media img { width: 100%; height: 100%; object-fit: cover; }
-.item__icon { width: 44%; max-width: 150px; color: var(--cream); }
+.item__icon { width: 60%; max-width: 190px; aspect-ratio: 1; }
 .tag {
   position: absolute;
   top: 10px;
@@ -584,7 +573,7 @@ body::before {
 @media (min-width: 800px) { .makers { grid-template-columns: 1fr 1fr; gap: 32px; } }
 .maker { padding: 26px 22px 24px; }
 .maker > * { position: relative; z-index: 3; }
-.maker__icon { width: 76px; color: var(--cream); margin-bottom: 8px; }
+.maker__icon { width: 84px; height: 84px; margin-bottom: 8px; }
 .maker__name { font: 400 clamp(2.4rem, 10vw, 3rem)/1 var(--font-display); color: var(--hi); text-transform: uppercase; }
 .maker__role {
   margin: 6px 0 12px;
