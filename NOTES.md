@@ -11,6 +11,7 @@ visit **in-game**. The owners are not programmers and edit stock from the
 GitHub website on their phones.
 
 ## Rules (do not break)
+- **STRICT: commit as the owner only.** No co-author lines or other names in commits or pull requests. Commit with: `git -c user.name="flickerscomics" -c user.email="337300978+flickerscomics@users.noreply.github.com" commit ...`. Never use any other email address (one of the owner's emails belongs to a different GitHub account).
 - **STRICT: on GitHub, act only as the owner's own account.** Never create, push, commit or change anything on GitHub as any other account. Confirm the signed-in account is the owner's before any GitHub action, and stop and ask if it isn't. Only push when the owner asks. The owner pastes secrets themselves (never type the webhook URL).
 - **Original names, art and products only.** No real brands, logos or products.
 - Everything is **in character** except the OOC footer: `(( Couple'a Cryptids is a roleplay business on GTA World. ))`
