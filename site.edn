@@ -20,10 +20,10 @@
  ;; Shown in Discord link previews and search results.
  :description    "Handmade goods and local provisions from Buck and Hunter. Jerky, caramel apples, wood work, candles and more. Call or stop by in-game."
 
- ;; [[ FILL THIS IN ]]  The address of this website once it is live.
+ ;; The address of this website. Discord link previews use it.
  ;; It looks like  https://yourname.github.io/reponame/
  ;; Keep the https:// at the front. Discord link previews need it.
- :site-url       "https://YOUR-GITHUB-NAME.github.io/YOUR-REPO-NAME/"
+ :site-url       "https://flickerscomics.github.io/couplea-cryptids/"
 
  ;; [[ FILL THIS IN ]]  Where to find us in-game.
  :location       "[[ LOCATION GOES HERE. Say where in-game people can find us. ]]"
