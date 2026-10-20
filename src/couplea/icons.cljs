@@ -22,17 +22,20 @@
 
 ;; ---------------------------------------------------------------- categories
 
-(defn- jerky-strip [dx dy]
-  [:g {:transform (str "translate(" dx " " dy ")")}
-   [:path {:d "M6 53.500L32 19.500Q38 17 41.500 21L44 28.500L18 62.500L15.500 59L13 60.500L11 56.500L9 58Z"}]
-   [:path {:d "M15 57L36 29M22 61L29 52"}]])
+(defn- jerky-strip
+  "One leathery strip: wavy edges, torn ends, grain lines and a couple of fat flecks.
+   Drawn lying flat, then turned up to the right."
+  [x y angle len]
+  [:g {:transform (str "translate(" x " " y ") rotate(" angle ") scale(" len " 1)")}
+   [:path {:d "M-36-8C-29-13-21-6-13-10S5-6 13-11S27-7 34-10L38-4L33 1L38 6L34 10C27 6 20 12 12 8S-4 13-12 8S-28 12-35 9L-31 3L-37-2Z"}]
+   [:path {:d "M-26-2C-15-5-5 1 8-1S23-3 28 0M-20 4C-10 3 0 5 10 3"}]
+   [:path {:class "solid" :d "M-8-5a2.200 1.200 0 1 0 4.400 0a2.200 1.200 0 1 0-4.400 0M16 2a2 1.100 0 1 0 4 0a2 1.100 0 1 0-4 0"}]])
 
 (defn jerky []
   (svg "0 0 100 100"
-       [:g {:transform "translate(10 -2)"}
-        [jerky-strip 0 0]
-        [jerky-strip 15 11.500]
-        [jerky-strip 30 23]]))
+       [jerky-strip 30 27 -38 0.78]
+       [jerky-strip 52 50 -34 0.85]
+       [jerky-strip 72 73 -40 0.76]))
 
 (defn apples []
   (svg "0 0 100 100"
