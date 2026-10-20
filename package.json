@@ -1,0 +1,19 @@
+{
+  "name": "couplea-cryptids",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website for Couple'a Cryptids, an in-character business on GTA World.",
+  "scripts": {
+    "dev": "shadow-cljs watch app",
+    "check": "shadow-cljs clj-run couplea.build/check",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs dist 8081"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "shadow-cljs": "3.5.7"
+  }
+}

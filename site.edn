@@ -1,0 +1,52 @@
+;; ====================================================================
+;;  SITE INFO  -  phone, place, hours, bios
+;; ====================================================================
+;;  Edit this file right on the GitHub website (pencil icon), then press
+;;  "Commit changes". The site updates by itself in a couple of minutes.
+;;
+;;  Change only the words inside the "quotes". Keep the quotes, the
+;;  colons (:) and the brackets exactly as they are.
+;;
+;;  Anything that looks like [[ LIKE THIS ]] is a placeholder. Replace
+;;  the whole thing, brackets and all, with the real words.
+;; ====================================================================
+
+{:business-name  "Couple'a Cryptids"
+ :phone          "285538"                          ; in-game number, digits only
+ :tagline        "Handcrafted Goods & Local Provisions"
+ :tagline-short  "Unique • Handmade • Local"
+ :motto          "Odds & Ends. Made with Heart."
+
+ ;; Shown in Discord link previews and search results.
+ :description    "Handmade goods and local provisions from Buck and Hunter. Jerky, caramel apples, wood work, candles and more. Call or stop by in-game."
+
+ ;; [[ FILL THIS IN ]]  The address of this website once it is live.
+ ;; It looks like  https://yourname.github.io/reponame/
+ ;; Keep the https:// at the front. Discord link previews need it.
+ :site-url       "https://YOUR-GITHUB-NAME.github.io/YOUR-REPO-NAME/"
+
+ ;; [[ FILL THIS IN ]]  Where to find us in-game.
+ :location       "[[ LOCATION GOES HERE. Say where in-game people can find us. ]]"
+
+ ;; [[ FILL THIS IN ]]  One line per row. Add or remove lines as you like.
+ :hours          ["[[ HOURS GO HERE. Example: Mon to Fri, 6pm to 10pm ]]"]
+
+ ;; OPTIONAL. To ping a Discord role on every custom order, put the
+ ;; role's ID number in quotes here, like "123456789012345678".
+ ;; Leave it as  nil  for no ping at all.
+ :discord-role-id nil
+
+ :makers
+ {:buck
+  {:name  "Buck"
+   :role  "Makes things by hand."
+   ;; [[ FILL THIS IN ]]  Two or three short sentences about Buck.
+   :bio   "[[ BUCK'S BIO GOES HERE. Two or three short sentences. ]]"
+   :makes ["Wood-burned signs" "Woodworking" "Candles & wax"]}
+
+  :hunter
+  {:name  "Hunter"
+   :role  "Does the cooking."
+   ;; [[ FILL THIS IN ]]  Two or three short sentences about Hunter.
+   :bio   "[[ HUNTER'S BIO GOES HERE. Two or three short sentences. ]]"
+   :makes ["Pickles" "Jerky" "Caramel & candied apples" "Snacks"]}}}

@@ -1,0 +1,91 @@
+;; ====================================================================
+;;  STOCK  -  what's on the shelves
+;; ====================================================================
+;;  Edit this file right on the GitHub website (pencil icon), then press
+;;  "Commit changes". The site updates by itself in a couple of minutes.
+;;
+;;  Anything after a ; on a line is a note to us. The site ignores it.
+;;
+;;  ADD AN ITEM
+;;    Copy a whole item, from its { down to its }, and paste it
+;;    just above the last ] at the bottom. Then change the words.
+;;
+;;  EDIT AN ITEM
+;;    Change the words inside the "quotes", or the number after :price.
+;;
+;;  MARK AN ITEM SOLD OUT
+;;    Change   :in-stock true   to   :in-stock false
+;;    It moves to the end of the shelf with a SOLD OUT stamp.
+;;    To bring it back, change it to true again.
+;;
+;;  REMOVE AN ITEM
+;;    Delete it from its { down to its }.
+;;    (Or put a ; at the start of every line to hide it for now.)
+;;
+;;  WHAT EACH LINE MEANS
+;;    :name         the item's name, in "quotes"
+;;    :description  one or two short sentences, in "quotes"
+;;    :price        whole dollars, no $ sign, no quotes: 300
+;;                  or write :ask to show "Ask us"
+;;    :category     :jerky  :apples  :wood  :candles  :handmade
+;;                  (pickles and snacks go under :jerky)
+;;    :maker        :buck  :hunter  or  :both
+;;    :in-stock     true or false
+;;    :tag          OPTIONAL little stamp in "quotes", like "Fresh batch"
+;;    :image        OPTIONAL photo, like "images/jerky.webp"
+;;                  Upload the photo to the images folder first.
+;;                  Leave this line out and the site shows a drawing.
+;;
+;;  KEEP THESE EXACT: the colons (:), the quotes ("), the brackets.
+;;  If something is off, the build stops and tells you which item and
+;;  what's wrong. The live site stays as it was. See README.md.
+;; ====================================================================
+
+[
+ ;; ---- These are EXAMPLES. Delete or replace them. ----
+
+ {:name        "Example Beef Jerky"
+  :description "Example item, not for sale. Smoked slow and cut thick."
+  :price       300            ; whole dollars, shown as $300 / $1,250. Or :ask to show "Ask us"
+  :category    :jerky         ; :jerky :apples :wood :candles :handmade
+  :maker       :hunter        ; :buck, :hunter or :both
+  :in-stock    true           ; false = shows SOLD OUT
+  :tag         "Fresh batch"  ; optional little stamp
+  }                           ; add  :image "images/jerky.webp"  for a photo
+
+ {:name        "Example Caramel Apple"
+  :description "Example item, not for sale. Dipped by hand, rolled in nuts."
+  :price       150
+  :category    :apples
+  :maker       :hunter
+  :in-stock    true}
+
+ {:name        "Example Wood-Burned Sign"
+  :description "Example item, not for sale. Pine board, burned by hand. Any words you like."
+  :price       1250
+  :category    :wood
+  :maker       :buck
+  :in-stock    true
+  :tag         "One of a kind"}
+
+ {:name        "Example Pine Candle"
+  :description "Example item, not for sale. Hand-poured in a little glass jar."
+  :price       200
+  :category    :candles
+  :maker       :buck
+  :in-stock    true}
+
+ {:name        "Example Dill Pickles"
+  :description "Example item, not for sale. Crunchy, jarred out back."
+  :price       100
+  :category    :jerky
+  :maker       :hunter
+  :in-stock    false}         ; sold out, so it sits at the end with a stamp
+
+ {:name        "Example Gift Basket"
+  :description "Example item, not for sale. A bit of everything from both of us."
+  :price       :ask           ; shows "Ask us"
+  :category    :handmade
+  :maker       :both
+  :in-stock    true}
+]

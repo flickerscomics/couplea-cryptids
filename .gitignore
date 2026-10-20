@@ -1,0 +1,13 @@
+node_modules/
+.shadow-cljs/
+.cpcache/
+
+# Build output (regenerated every build)
+public/
+dist/
+
+# Local scratch
+.env
+*.log
+.DS_Store
+Thumbs.db
