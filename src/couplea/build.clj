@@ -150,10 +150,12 @@
     (copy-tree! "static" "dist" :except ["index.html"])
     (copy-tree! "images" "dist/images")
     (copy-file! main (io/file "dist" "js" "main.js"))
+    ;; "?v=..." changes whenever the file changes, so browsers fetch the new
+    ;; script and stylesheet after every update instead of using an old copy.
     (spit (io/file "dist" "index.html")
-          (str/replace (render-index site)
-                       "js/main.js"
-                       (str "js/main.js?v=" (sha1-8 main)))
+          (-> (render-index site)
+              (str/replace "js/main.js" (str "js/main.js?v=" (sha1-8 main)))
+              (str/replace "css/main.css" (str "css/main.css?v=" (sha1-8 (io/file "static" "css" "main.css")))))
           :encoding "UTF-8")
     (let [n (count (rel-files (io/file "dist")))
           kb (quot (reduce + (map #(.length (io/file "dist" %)) (rel-files (io/file "dist")))) 1024)]
