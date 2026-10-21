@@ -25,11 +25,12 @@
  ;; Keep the https:// at the front. Discord link previews need it.
  :site-url       "https://flickerscomics.github.io/couplea-cryptids/"
 
- ;; [[ FILL THIS IN ]]  Where to find us in-game.
- :location       "[[ LOCATION GOES HERE. Say where in-game people can find us. ]]"
+ ;; Where to find us in-game.
+ :location       "Come pick up orders in the Paleto Bay Office, Room 7!"
 
- ;; [[ FILL THIS IN ]]  One line per row. Add or remove lines as you like.
- :hours          ["[[ HOURS GO HERE. Example: Mon to Fri, 6pm to 10pm ]]"]
+ ;; One line per row. Add or remove lines as you like.
+ :hours          ["By appointment"
+                  "Deliveries available"]
 
  ;; OPTIONAL. To ping a Discord role on every custom order, put the
  ;; role's ID number in quotes here, like "123456789012345678".
@@ -40,13 +41,13 @@
  {:buck
   {:name  "Buck"
    :role  "Makes things by hand."
-   ;; [[ FILL THIS IN ]]  Two or three short sentences about Buck.
-   :bio   "[[ BUCK'S BIO GOES HERE. Two or three short sentences. ]]"
+   ;; Two or three short sentences about Buck.
+   :bio   "Buck handles all the woodworking and hands-on builds for Couple'a Cryptids. From cutting boards to custom crates, if it's made of wood, he probably made it. He works with Hunter at Sustainable Horizons and brings the same steady, practical approach to everything they sell."
    :makes ["Wood-burned signs" "Woodworking" "Candles & wax"]}
 
   :hunter
   {:name  "Hunter"
    :role  "Does the cooking."
-   ;; [[ FILL THIS IN ]]  Two or three short sentences about Hunter.
-   :bio   "[[ HUNTER'S BIO GOES HERE. Two or three short sentences. ]]"
+   ;; Two or three short sentences about Hunter.
+   :bio   "Hunter currently works alongside Buck at Sustainable Horizons, where he sources all of his ingredients fresh. When he's not out on the farm, you'll usually find him packing orders or playing a little guitar between customers."
    :makes ["Pickles" "Jerky" "Caramel & candied apples" "Snacks"]}}}
